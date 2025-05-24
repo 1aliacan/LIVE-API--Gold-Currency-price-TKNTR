@@ -22,23 +22,29 @@ def aud_ALIS():
 
 
 def aud_SATIS():
+    response = requests.get(url_address)
     if data_response.status_code == 200:
-        data = data_response.json()
-        print("AUD Dolari Satis: ", data["AUD"]["Selling"])
+        data = response.json()
+        value_SatAUD= data["AUD"]["Selling"]
+        aud_satis_entry.delete(0,tkinter.END)
+        aud_satis_entry.insert(0,value_SatAUD)
+
 
 def usd_ALIS():
-    response = requests.get(url_address)
+     response = requests.get(url_address)
      if data_response.status_code == 200:
-        data = requests.json()
+        data = response.json()
         usd_Avalue = data["USD"]["Buying"]
         usd_alis_entry.delete(0, tk.END )  # Clear the one on screen
         usd_alis_entry.insert(0, usd_Avalue)  # insert the new value
 
 def usd_SATIS():
-    data = data_response.json()
-    usd_Svalue=data["USD"]["Selling"]
-    usd_satis_entry.delete(0, tk.END) #mevcut degeri sil
-    usd_satis_entry.insert(0, usd_Svalue)
+    response = requests.get(url_address)
+    if data_response.status_code == 200:
+        data = response.json()
+        usd_Svalue=data["USD"]["Selling"]
+        usd_satis_entry.delete(0, tk.END) #mevcut degeri sil
+        usd_satis_entry.insert(0, usd_Svalue)
 
 def euro_ALIS():
     
@@ -218,6 +224,14 @@ aud_alis_button.place(x=10,y=370)
 #aud alis entry
 aud_alis_entry = tkinter.Entry(app_window, fg="lightblue", width=15, justify="center")
 aud_alis_entry.place(x=10,y=400)
+
+#aud satis button
+aud_satis_button = tkinter.Button(app_window,text="AUD SATIS FIYATI", command=aud_SATIS)
+aud_satis_button.place(x=200,y=370)
+#aud satis entry
+aud_satis_entry = tkinter.Entry(app_window,fg="orange",width=15, justify="center")
+aud_satis_entry.place(x=200,y=400)
+
 
 
 
