@@ -1,13 +1,7 @@
 import tkinter
-from html.parser import commentclose
-import tkinter as tk
-from tkinter.ttk import tclobjs_to_py
-
 import requests
-from requests.packages import package
 
 url_address = "https://finans.truncgil.com/v4/today.json"
-
 data_response = requests.get(url_address)
 
 
@@ -23,7 +17,7 @@ def aud_ALIS():
 
 def aud_SATIS():
     response = requests.get(url_address)
-    if data_response.status_code == 200:
+    if response.status_code == 200:
         data = response.json()
         value_SatAUD= data["AUD"]["Selling"]
         aud_satis_entry.delete(0,tkinter.END)
@@ -32,7 +26,7 @@ def aud_SATIS():
 
 def usd_ALIS():
      response = requests.get(url_address)
-     if data_response.status_code == 200:
+     if response.status_code == 200:
         data = response.json()
         usd_Avalue = data["USD"]["Buying"]
         usd_alis_entry.delete(0, tk.END )  # Clear the one on screen
@@ -40,18 +34,19 @@ def usd_ALIS():
 
 def usd_SATIS():
     response = requests.get(url_address)
-    if data_response.status_code == 200:
+    if response.status_code == 200:
         data = response.json()
         usd_Svalue=data["USD"]["Selling"]
         usd_satis_entry.delete(0, tk.END) #mevcut degeri sil
         usd_satis_entry.insert(0, usd_Svalue)
 
 def euro_ALIS():
-    
-    data= data_response.json()
-    euro_Avalue = data["EUR"]["Buying"]
-    euro_alis_entry.delete(0,tk.END)#entry deki eski degeri sil
-    euro_alis_entry.insert(0,euro_Avalue) #yeni degeri entry e cek
+    response = requests.get(url_address)
+    if response.status_code == 200:
+        data= data_response.json()
+        euro_Avalue = data["EUR"]["Buying"]
+        euro_alis_entry.delete(0,tk.END)#entry deki eski degeri sil
+        euro_alis_entry.insert(0,euro_Avalue) #yeni degeri entry e cek
 
 
 def euro_SATIS():
@@ -124,7 +119,6 @@ def tam_altin_SATIS():
 app_window = tkinter.Tk()
 app_window.title("DOLAR-ALTIN ANLIK FIYAT")
 app_window.minsize(400,600)
-app_window.pack_slaves()
 
 
 
